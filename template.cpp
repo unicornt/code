@@ -46,8 +46,8 @@ inline void rd(int&res)
 	do res=res*10+(c^48);
 	while(c=getchar(),c>47);
 }
-template<class Ty>void chk_min(Ty&x,Ty y){if(x>y)x=y;}
-template<class Ty>void chk_max(Ty&x,Ty y){if(x<y)x=y;}
+template<class Ty>inline void chk_min(Ty&x,Ty y){if(x>y)x=y;}
+template<class Ty>inline void chk_max(Ty&x,Ty y){if(x<y)x=y;}
 int main()
 {
 	
