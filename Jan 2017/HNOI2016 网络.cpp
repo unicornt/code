@@ -1,191 +1,203 @@
-#include<cstdio>
-#include<cstring>
-#include<iostream>
-#include<algorithm>
-#include<set>
-#include<map>
-#include<vector>
-#include<queue>
-#include<stack>
-#include<cmath>
-#include<ctime>
-#include<string>
-#include<cstdlib>
-#include<cassert>
-#include<cctype>
-#include<bitset>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <cassert>
+#define rep(i,a,b) for(int i=a,i##_END_=b;i<i##_END_;++i)
+#define per(i,a,b) for(int i=(b)-1,i##_BEGIN_=a;i>=i##_BEGIN_;--i)
 using namespace std;
-#define ll long long
-#define pb push_back
-#define ull unsigned long long
-#define db double
-#define vec vector
-#define mp make_pair
-#define y1 dafgsadifgsd
-#define y2 adgijaasdg
-#define y0 jafgad
-#define is_empty alkdfnadsf
-#define hash asdlighasdlf
-#define rep(i,s,t) for(int i=(s),_t=(t);i<_t;++i)
-#define per(i,s,t) for(int i=(t)-1,_s=(s);i>=_s;--i)
-template<class T>inline void rd(T &x){
-	x=0;char c;int f=1;
-	while(c=getchar(),c<48)if(c=='-')f=-1;
-	do x=x*10+(c&15);
-	while(c=getchar(),c>47);
-	x*=f;
-}
-template<class T>void prin(T x){
-	if(!x)return ;
-	prin(x/10);
-	putchar(x%10^48);
-}
-template<class T>void pf(T x){
-	if(x<0)putchar('-'),x=-x;
-	else if(!x)putchar('0');
-	prin(x);
-}
-template<class T>void ptn(T x){
-	pf(x);putchar('\n');
-}
-template<class T>void ptk(T x){
-	pf(x);putchar(' ');
-}
-template<class T>void Min(T &A,T B){
-	if(A>B)A=B;
-}
-template<class T>void Max(T &A,T B){
-	if(A<B)A=B;
-}
-const int N=(int)1e5+5,M=(int)2e5+5;
-struct ss{
-	int to,nxt;
-}G[M];
-struct node{
-	int id,tp,x,y,val,lca;
-	bool flag;
-	bool operator<(const node &A)const{
-		if(flag!=A.flag)return flag<A.flag;
-		return id<A.id;
-	}
-}Q[M];
-int head[N],sz[N],top[N],son[N],tot,par[N],Lpos[N],Rpos[N],dfn_time,dep[N];
-void dfs(int x){
-	Lpos[x]=++dfn_time;
-	sz[x]=1;
-	for(int i=head[x];i;i=G[i].nxt){
-		int y=G[i].to;
-		if(y!=par[x]){
-			par[y]=x;
-			dep[y]=dep[x]+1;
-			dfs(y);
-			if(sz[y]>sz[son[x]])son[x]=y;
-			sz[x]+=sz[y];
-		}
-	}
-	Rpos[x]=dfn_time;
-}
-void gettop(int x,int y){
-	top[x]=y;
-	if(son[x])gettop(son[x],y);
-	else return ;
-	for(int i=head[x];i;i=G[i].nxt){
-		int y=G[i].to;
-		if(y!=son[x]&&y!=par[x])gettop(y,y);
-	}
-}
-int LCA(int x,int y){
-	while(top[x]!=top[y])
-		if(dep[top[x]]>dep[top[y]])x=par[top[x]];
-		else y=par[top[y]];
-	if(dep[x]>dep[y])return y;
-	return x;
-}
 int n,m;
-int bit[N],f[N],ff;
-void add(int x,int v){
-	for(;x<=n;x+=x&-x){
-		if(f[x]!=ff)f[x]=ff,bit[x]=0;
-		bit[x]+=v;
-	}
+inline void rd(int&x)
+{
+	x=0;char c;
+	while(c=getchar(),c<48);
+	do x=x*10+(c^48);
+	while(c=getchar(),c>47);
 }
-int Sum(int x){
-	int res=0;
-	for(;x;x-=x&-x)
-		if(f[x]==ff)res+=bit[x];
-	return res;
+const int M=100005;
+const int S=17;
+struct Edge
+{
+	int to,nxt;
+	Edge(int a,int b):to(a),nxt(b){}
+	Edge(){}
+}edge[M<<1];
+int head[M],etot,C[M<<1],ans[M<<1],B[M<<1],opt[M<<1],a[M<<1],b[M<<1],v[M<<1];
+void add_edge(int u,int v)
+{
+	edge[etot]=Edge(v,head[u]);
+	head[u]=etot++;
 }
-int ans[M];
-void solve(int l,int r,int L,int R){
-	if(l==r){
-		for(int i=L;i<=R;++i)if(Q[i].tp==2)ans[Q[i].y]=l;
-		return ;
+int A[M<<1];
+int L[M],R[M],dfs_clock,pre[S][M],dep[M],lca[M<<1];
+void rec(int x,int f)
+{
+	pre[0][x]=f;
+	dep[x]=dep[f]+1;
+	L[x]=++dfs_clock;
+	for(int i=head[x];~i;i=edge[i].nxt)
+	{
+		int to=edge[i].to;
+		if(to==f) continue;
+		rec(to,x);
 	}
-	++ff;
-	int mid=(l+r)>>1,num=0,t=L-1;
-	for(int i=L;i<=R;++i){
-		if(Q[i].tp==0){
-			if(Q[i].val>mid){
-				Q[i].flag=1;num++;
-				add(Lpos[Q[i].x],1);
-				add(Lpos[Q[i].y],1);
-				add(Lpos[Q[i].lca],-1);
-				if(par[Q[i].lca])add(Lpos[par[Q[i].lca]],-1);
-			}else Q[i].flag=0,t++;
-		}else if(Q[i].tp==1){
-			if(Q[i].val>mid){
-				Q[i].flag=1;num--;
-				add(Lpos[Q[i].x],-1);
-				add(Lpos[Q[i].y],-1);
-				add(Lpos[Q[i].lca],1);
-				if(par[Q[i].lca])add(Lpos[par[Q[i].lca]],1);
-			}else Q[i].flag=0,t++;
-		}else {
-			int cnt=Sum(Rpos[Q[i].x])-Sum(Lpos[Q[i].x]-1);
-			if(cnt<num){
-				Q[i].flag=1;
-			}else Q[i].flag=0,t++;
+	R[x]=dfs_clock;
+}
+void pret()
+{
+	rep(i,1,S) rep(j,1,n+1) pre[i][j]=pre[i-1][pre[i-1][j]];
+}
+int up(int u,int step)
+{
+	rep(i,0,S) if(step&(1<<i)) u=pre[i][u];
+	return u;
+}
+int LCA(int u,int v)
+{
+	if(dep[u]<dep[v]) swap(u,v);
+	u=up(u,dep[u]-dep[v]);
+	if(u!=v)
+	{
+		per(i,0,S) if(pre[i][u]!=pre[i][v]) u=pre[i][u],v=pre[i][v];
+		u=pre[0][u];
+	}
+	return u;
+}
+#define lowbit(x) ((x)&(-(x)))
+struct Binary_Index_Tree
+{
+	int bit[M<<1];
+	void add(int x,int w)
+	{
+		while(x<=dfs_clock)
+		{
+			bit[x]+=w;
+			x+=lowbit(x);
 		}
 	}
-	sort(Q+L,Q+R+1);
-	if(t>=L)solve(l,mid,L,t);
-	if(t<R)solve(mid+1,r,t+1,R);
-}
-int main(){
-//	freopen(".in","r",stdin);
-//	freopen("pro.out","w",stdout);
-	rd(n);rd(m);
-	for(int i=1,x,y;i<n;++i){
-		rd(x);rd(y);
-		G[++tot]=(ss){y,head[x]};head[x]=tot;
-		G[++tot]=(ss){x,head[y]};head[y]=tot;
+	void init()
+	{
+		memset(bit,0,sizeof(bit));
 	}
-	dfs(1);
-	gettop(1,1);
-	tot=0;
-	int mx=-(int)1e9;
-	for(int i=1,x,y,v,tp;i<=m;++i){
-		rd(tp);
-		if(tp==0){
-			rd(x);rd(y);rd(v);
-			Max(mx,v);
-			Q[i]=(node){i,tp,x,y,v,LCA(x,y),0};
-		}else if(tp==1){
-			rd(x);
-			Q[i]=Q[x];
-			Q[i].tp=1;Q[i].id=i;
-		}else if(tp==2){
-			rd(x);
-			Q[i].id=i;
-			Q[i].tp=2;
-			Q[i].x=x;
-			Q[i].y=tot++;
+	int sum(int x)
+	{
+		int res=0;
+		while(x>0)
+		{
+			res+=bit[x];
+			x-=lowbit(x);
+		}
+		return res;
+	}
+}bit;
+void add(int i,int f)
+{
+	bit.add(L[a[i]],f);
+	bit.add(L[b[i]],f);
+	bit.add(L[lca[i]],-f);
+	if(pre[0][lca[i]]) bit.add(L[pre[0][lca[i]]],-f);
+}
+void solve(int tL,int tR,int l,int r)
+{
+//	printf("L and R     %d %d\n",tL,tR);
+	if(tL+1==tR)
+	{
+		rep(i,l,r) if(opt[C[i]]==2) ans[C[i]]=B[tL];
+		return;
+	}
+	int mid=(tL+tR)>>1;
+//	puts("1");
+	//[tL,mid) [mid,tR);
+	rep(i,l,r) A[i]=C[i];
+	int tot=0,tl=l,tr=r-1;
+//	puts("2");
+	rep(iid,l,r)
+	{
+		int i=A[iid];
+		if(opt[i]==2)
+		{
+			int res=bit.sum(R[a[i]])-bit.sum(L[a[i]]-1);
+//			printf("res and tot   %d %d\n",res,tot);
+			assert(res<=tot);
+			if(res>=tot) C[tl++]=i;
+			else C[tr--]=i;
+		}
+		else if(opt[i]==0)
+		{
+			assert(v[i]>=tL&&v[i]<tR);
+			if(v[i]>=mid)
+			{
+				add(i,1);
+				++tot;
+				C[tr--]=i;
+			}
+			else C[tl++]=i;
+		}
+		else
+		{
+			assert(opt[i]==1);
+			assert(v[a[i]]>=tL&&v[a[i]]<tR);
+			if(v[a[i]]>=mid)
+			{
+				add(a[i],-1);
+				--tot;
+				C[tr--]=i;
+			}
+			else C[tl++]=i;
 		}
 	}
-	solve(0,mx,1,m);
-	rep(i,0,tot){
-		if(ans[i]==0)ans[i]=-1;
-		ptn(ans[i]);
+	rep(iid,l,r)
+	{
+		int i=A[iid];
+		if(opt[i]==0&&v[i]>=mid) add(i,-1);
+		if(opt[i]==1&&v[a[i]]>=mid) add(a[i],1);
 	}
+	rep(i,tr+1,r)
+	{
+		int j=r-(i-tr);
+		if(i>=j) break;
+		swap(C[i],C[j]);
+	}
+//	puts("3");
+	assert(tl==tr+1);
+	solve(tL,mid,l,tl);
+	solve(mid,tR,tl,r);
+}
+int main()
+{
+	memset(head,-1,sizeof(head));
+	scanf("%d%d",&n,&m);
+	rep(i,1,n)
+	{
+		int u,v;
+		rd(u);rd(v);
+		add_edge(u,v);
+		add_edge(v,u);
+	}
+	int tot=0;
+	B[tot++]=-1;
+	rep(i,1,m+1)
+	{
+		rd(opt[i]);
+		rd(a[i]);
+		if(opt[i]==0)
+		{
+			rd(b[i]),rd(v[i]);
+			B[tot++]=v[i];
+		}
+	}
+	rec(1,0);
+	pret();
+	sort(B,B+tot);
+	tot=unique(B,B+tot)-B;
+	rep(i,1,m+1) if(!opt[i])
+	{
+		v[i]=lower_bound(B,B+tot,v[i])-B;
+		lca[i]=LCA(a[i],b[i]);
+	}
+	rep(i,1,m+1) C[i]=i,ans[i]=-1;
+	solve(0,tot,1,m+1);
+	rep(i,1,m+1)if(opt[i]==2) printf("%d\n",ans[i]);
 	return 0;
 }
