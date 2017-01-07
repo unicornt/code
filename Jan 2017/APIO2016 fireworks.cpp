@@ -6,7 +6,7 @@
 using namespace std;
 typedef long long ll;
 const int M=600005;
-int n,m,sz,rs[M],ls[M],dst[M],tree[M],par[M],dis[M],son[M];
+int n,m,sz,rs[M],ls[M],tree[M],par[M],dis[M],son[M];
 ll v[M];
 int P(ll x)
 {
@@ -19,8 +19,7 @@ int Merge(int x,int y)
 	if(v[x]>v[y]) swap(x,y);
 	//v[x]<v[y]
 	rs[y]=Merge(x,rs[y]);
-	if(dst[ls[y]]<dst[rs[y]]) swap(ls[y],rs[y]);
-	dst[y]=dst[rs[y]]+1;
+	swap(ls[y],rs[y]);
 	return y;
 }
 ll Pop(int x)
