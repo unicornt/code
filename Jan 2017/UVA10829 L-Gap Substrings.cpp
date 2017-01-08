@@ -1,3 +1,6 @@
+/*
+	tags: Suffix Array,Segment Tree
+*/
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
