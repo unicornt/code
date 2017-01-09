@@ -1,3 +1,6 @@
+/*
+	tags: 斜堆,凸壳
+*/
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
