@@ -1,3 +1,6 @@
+/*
+	tags: dp,前缀和,卡常
+*/
 #include <cstdio>
 #include <cassert>
 #include <cstring>
