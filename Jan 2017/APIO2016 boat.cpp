@@ -1,5 +1,5 @@
 /*
-	tags: dp,前缀和,卡常
+	tags: dp,前缀和,卡常,组合
 */
 #include <cstdio>
 #include <cassert>
