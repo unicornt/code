@@ -1,3 +1,7 @@
+/*
+	tags: suffix array
+	notes: 字符集比较大
+*/
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
