@@ -1,3 +1,6 @@
+/*
+	tags: suffix array,two pointers
+*/
 #include <cstdio>
 #include <cstring>
 #include <cassert>
