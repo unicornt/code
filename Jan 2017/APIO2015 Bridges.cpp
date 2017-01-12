@@ -1,3 +1,6 @@
+/*
+	tags: 贪心,堆(求中位数)
+*/
 #include <cstdio>
 #include <cstring>
 #include <queue>
