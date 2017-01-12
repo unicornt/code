@@ -1,5 +1,5 @@
 /*
-	tags: 分块决策
+	tags: 贪心,dp
 */
 #include <cstdio>
 #include <cassert>
