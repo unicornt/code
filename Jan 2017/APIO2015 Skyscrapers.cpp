@@ -1,3 +1,6 @@
+/*
+	tags: 分块决策
+*/
 #include <cstdio>
 #include <cassert>
 #include <cstring>
