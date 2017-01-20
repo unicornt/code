@@ -1,3 +1,7 @@
+/*
+	tags: 一般图最大匹配，建模
+	notes: 注意边数的计算
+*/
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
