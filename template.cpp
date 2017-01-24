@@ -1,13 +1,11 @@
-#include <vector>
 #include <map>
 #include <set>
 #include <queue>
 #include <ctime>
 #include <cmath>
-#include <algorithm>
-#include <vector>
 #include <cstdio>
 #include <string>
+#include <vector>
 #include <cstring>
 #include <cassert>
 #include <iostream>
@@ -25,7 +23,7 @@
 #define rep(i,a,n) for(int i=a,i##_END_=n;i<i##_END_;++i)
 #define per(i,a,n) for(int i=(n)-1,i##_BEGIN_=a;i>=i##_BEGIN_;--i)
 #define forall(it,a) for(__typeof((a).begin()) it=(a).begin();it!=(a).end();++it)
-#define showtime fprintf(stderr,"time = %.15f\n",clock() / (double)CLOCKS_PER_SEC)
+#define showtime fprintf(stderr,"time = %.15f\n",clock()/(double)CLOCKS_PER_SEC)
 using namespace std;
 typedef double db;
 typedef long long ll;
@@ -34,13 +32,12 @@ typedef vector<int> vi;
 typedef pair<ll,ll> pll;
 typedef pair<int,int> pii;
 typedef unsigned long long ull;
-const int mod=1e9+7,INF=0x7fffffff,inf=200000000;//2 yi
+const int mod=1e9+7,INF=0x7fffffff,inf=2e8;//2 yi
 const ll linf=(ll)1e18;
 const db pi=acos(-1.0),eps=1e-8;
 int fast_pow(int x,int b,int MOD=mod){
 	int res=1;
-	for(;b;b>>=1,x=(ll)x*x%MOD)
-		if(b&1)res=(ll)res*x%MOD;
+	for(;b;b>>=1,x=(ll)x*x%MOD) if(b&1)res=(ll)res*x%MOD;
 	return res;
 }
 void add(int&x,int y,int MOD=mod){x+=y;if(x>=MOD)x-=MOD;}
