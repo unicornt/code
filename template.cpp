@@ -18,7 +18,7 @@
 #define prt(x) cout<<x<<' '
 #define pts(x) cout<<x<<endl
 #define lowbit(x) ((x)&-(x))
-#define debug(x) cout<<#x<<" = "<<x<<endl;
+#define debug(x) cerr<<#x<<" = "<<x<<endl;
 #define dig(...) fprintf(stderr,__VA_ARGS__)
 #define rep(i,a,n) for(int i=a,i##_END_=n;i<i##_END_;++i)
 #define per(i,a,n) for(int i=(n)-1,i##_BEGIN_=a;i>=i##_BEGIN_;--i)
