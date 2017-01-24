@@ -9,7 +9,7 @@
 #define se second
 #define pb(x) push_back(x)
 #define clr(x,y) memset(x,y,sizeof(x))
-#define debug(x) cout<<#x<<" = "<<x<<endl;
+#define debug(x) cerr<<#x<<" = "<<x<<endl;
 #define dig(...) fprintf(stderr,__VA_ARGS__)
 #define rep(i,a,n) for(int i=a,i##_END_=n;i<i##_END_;++i)
 #define per(i,a,n) for(int i=(n)-1,i##_BEGIN_=a;i>=i##_BEGIN_;--i)
