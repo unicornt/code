@@ -45,11 +45,11 @@ void del(int&x,int y,int MOD=mod){x-=y;if(x<0)x+=MOD;}
 template<class Ty>Ty gcd(Ty a,Ty b){return a?gcd(b%a,a):b;}
 template<class Ty>void chk_min(Ty&x,Ty y){if(x>y)x=y;}
 template<class Ty>void chk_max(Ty&x,Ty y){if(x<y)x=y;}
-inline void rd(int&res)
+template<class Ty>inline void rd(Ty&res)
 {
 	res=0;char c;
 	bool flag=false;
-	while(c=getchar(),c!='-'&&c<'0'&&c>'9');
+	while(c=getchar(),c!='-'&&(c<'0'||c>'9'));
 	if(c=='-') flag=true,c=getchar();
 	do res=res*10+(c^48);
 	while(c=getchar(),c>='0'&&c<='9');
