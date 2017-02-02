@@ -15,8 +15,8 @@
 #define pb(x) push_back(x)
 #define all(x) x.begin(),x.end()
 #define clr(x,y) memset(x,y,sizeof(x))
-#define prt(x) cout<<x<<' '
-#define pts(x) cout<<x<<endl
+#define prt(x) cerr<<x<<' '
+#define pts(x) cerr<<x<<endl
 #define lowbit(x) ((x)&-(x))
 #define debug(x) cerr<<#x<<" = "<<x<<endl;
 #define dig(...) fprintf(stderr,__VA_ARGS__)
