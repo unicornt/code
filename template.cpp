@@ -1,15 +1,4 @@
-#include <map>
-#include <set>
-#include <queue>
-#include <ctime>
-#include <cmath>
-#include <cstdio>
-#include <string>
-#include <vector>
-#include <cstring>
-#include <cassert>
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 #define fi first
 #define se second
 #define pb(x) push_back(x)
@@ -35,38 +24,20 @@ typedef unsigned long long ull;
 const int mod=1e9+7,INF=0x7fffffff,inf=2e8;//2 yi
 const ll linf=(ll)1e18;
 const db pi=acos(-1.0),eps=1e-8;
-int fast_pow(int x,int b,int MOD=mod){
+int mod_pow(int x,int b,int MOD=mod){
 	int res=1;
-	for(;b;b>>=1,x=(ll)x*x%MOD) if(b&1)res=(ll)res*x%MOD;
+	for(;b;b>>=1,x=(ll)x*x%MOD)
+		if(b&1) res=(ll)res*x%MOD;
 	return res;
 }
-void add(int&x,int y,int MOD=mod){x+=y;if(x>=MOD)x-=MOD;}
-void del(int&x,int y,int MOD=mod){x-=y;if(x<0)x+=MOD;}
+void mod_add(int&x,int y,int MOD=mod){
+	x+=y;
+	if(x>=MOD) x-=MOD;
+}
+void mod_minus(int&x,int y,int MOD=mod){
+	x-=y;
+	if(x<0) x+=MOD;
+}
 template<class Ty>Ty gcd(Ty a,Ty b){return a?gcd(b%a,a):b;}
 template<class Ty>void chk_min(Ty&x,Ty y){if(x>y)x=y;}
 template<class Ty>void chk_max(Ty&x,Ty y){if(x<y)x=y;}
-template<class Ty>inline void rd(Ty&res)
-{
-	res=0;char c;
-	bool flag=false;
-	while(c=getchar(),c!='-'&&(c<'0'||c>'9'));
-	if(c=='-') flag=true,c=getchar();
-	do res=res*10+(c^48);
-	while(c=getchar(),c>='0'&&c<='9');
-	if(flag) res=-res;
-}
-void print(int x)
-{
-	if(!x) return;
-	print(x/10);
-	putchar(x%10^48);
-}
-void pt(int x)
-{
-	if(!x) putchar('0');
-	else print(x);
-}
-int main()
-{
-	return 0;
-}
